@@ -8,7 +8,7 @@
       </v-col>
       <v-col cols="9">
         <v-row class="my-10">
-          <Cards :productList="$store.state.products.productList" />
+          <Cards :productList="$store.getters.searchByName" />
         </v-row>
       </v-col>
     </v-row>

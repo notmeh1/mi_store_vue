@@ -3,13 +3,13 @@ export const productsModule = {
         productList: [
             {
               img: 'https://inksoft.ugp.io/images/products/2570/products/763/White/front/500.png?decache=633',
-              name: 'Blanca',
+              name: 'White',
               stock: 100,
               price: '15.000',
             },
             {
               img: 'https://inksoft.ugp.io/images/products/2570/products/763/Black/front/500.png?decache=760',
-              name: 'Negra',
+              name: 'Black',
               stock: 100,
               price: '15.000'
             },

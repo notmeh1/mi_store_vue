@@ -9,6 +9,7 @@
         class="inputSearch mx-3"
         placeholder="Buscar por color"
         :value="$store.state.searchInput"
+        @input="$store.dispatch('getFilter', $event.target.value)"
       />
     </div>
     <v-divider horizontal class="mt-5"></v-divider>
