@@ -13,7 +13,7 @@
         <div class="text-center">
           <v-divider></v-divider>
 
-          <v-btn class="my-2" color="success"
+          <v-btn class="my-2" color="success" :to="{ name: 'blackshirt' }"
             >${{ product.price }}</v-btn
           >
         </div>
