@@ -13,9 +13,7 @@
         <div class="text-center">
           <v-divider></v-divider>
 
-          <v-btn class="my-2" color="success" :to="{ name: 'blackshirt' }"
-            >${{ product.price }}</v-btn
-          >
+        <router-link :to="{path: `/products/shirts/${product.name}`, params: {id: product.name}}"> {{product.name}}</router-link>
         </div>
       </v-card>
     </v-col>
@@ -23,11 +21,13 @@
 </template>
 
 <script>
+import {mapState} from 'vuex';
 export default {
   computed: {
-    productData() {
-      return this.$store.state.products.productList;
-    },
+    ...mapState(["products/productList"]),
+    //productData() {
+    //  return this.$store.state.products.productList;
+    //},
   },
   props: {
     productList: {

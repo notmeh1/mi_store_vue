@@ -9,7 +9,7 @@
         <v-btn text :to="{ name: 'products' }"> Productos </v-btn>
       </v-toolbar-items>
 
-      <v-btn color="success" tile icon><v-icon>mdi-cart</v-icon></v-btn>
+      <v-btn color="success" tile icon :to="{ name: 'cart' }"><v-icon>mdi-cart</v-icon></v-btn>
 
       <v-spacer></v-spacer>
     </v-app-bar>
