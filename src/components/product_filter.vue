@@ -14,11 +14,13 @@
     </div>
     <v-divider horizontal class="mt-5"></v-divider>
     <v-row class="mx-5 my-3">
-        <v-card-text align=center>Filtrar por precio</v-card-text>
+        <v-card-text align=center><h3>Filtrar por precio</h3></v-card-text>
         <v-col>
+          desde
             <input type="number" class="inputSearch" placeholder="min" min="0" max="30000" step="500" value="0">
         </v-col>
         <v-col>
+          hasta
             <input type="number" class="inputSearch" placeholder="max" min="0" max="30000" step="500" value="30000">
         </v-col>
     </v-row>

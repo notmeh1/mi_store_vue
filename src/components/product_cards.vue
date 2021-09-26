@@ -1,6 +1,13 @@
 <template>
   <v-row class="my-10 mx-3">
     <v-col v-for="(product, $index) in productList" :key="$index" cols="3">
+                <router-link style="text-decoration: none; color: inherit;"
+            :to="{
+              path: `/products/shirts/${product.name}`,
+              params: { id: product.name },
+            }"
+            
+          >
       <v-card class="mx-auto" max-width="250px" tile>
         <v-img :src="product.img" height="200px"/>
 
@@ -9,25 +16,22 @@
         <v-card-subtitle>
           Stock disponible: {{ product.stock }}
         </v-card-subtitle>
-
-        <div class="text-center">
-          <v-divider></v-divider>
-
-        <router-link :to="{path: `/products/shirts/${product.name}`, params: {id: product.name}}"> {{product.name}}</router-link>
-        </div>
+        <v-divider></v-divider>
+        <v-card-subtitle class="font-weight-black text-center">
+          <h3>${{ product.price }}</h3>
+        </v-card-subtitle>
       </v-card>
+      </router-link
+          >
     </v-col>
   </v-row>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState(["products/productList"]),
-    //productData() {
-    //  return this.$store.state.products.productList;
-    //},
   },
   props: {
     productList: {
@@ -38,6 +42,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

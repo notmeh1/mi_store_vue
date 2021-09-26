@@ -25,7 +25,7 @@
           class="mb-10"
         />
         <h3>Precio total: ${{ calcPrice }}</h3>
-        <v-btn color="success">Añadir al carrito</v-btn>
+        <v-btn color="success" @click="$store.dispatch('addCart', getId.id)">Añadir al carrito</v-btn>
       </v-col>
 
       <v-col></v-col>
