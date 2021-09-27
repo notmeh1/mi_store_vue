@@ -26,7 +26,7 @@
         />
         <p v-if="getId.sale" class="discountText">Descuento: {{ getId.discount }}%</p>
         <h3>Precio total: <span v-if="getId.sale" :style="[getId.sale ? {'color' : 'red', 'font-weight' : 'bolder'} : {}]">${{calcPriceDiscount}}</span> <span :style="[getId.sale ? {'text-decoration' : 'line-through'} : {}]">${{ calcPrice}}</span></h3>
-        <v-btn color="success" @click="$store.dispatch('addCart', getId.id)">Añadir al carrito</v-btn>
+        <v-btn color="success" @click="addToCart()">Añadir al carrito</v-btn>
       </v-col>
       <v-col></v-col>
     </v-row>
@@ -45,6 +45,14 @@ export default {
   data: () => ({
     productSize: ["XS", "S", "M", "L", "XL"],
   }),
+  methods: {
+    addToCart() {
+      this.$store.dispatch('addCart', {
+        product: this.getId,
+        qty: 1,
+      })
+    },
+  },
   computed: {
     id() {
       return this.$route.params.color;

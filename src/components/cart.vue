@@ -1,26 +1,25 @@
 <template>
   <div>
-      <v-row class="mx-10 my-2">
-        <v-col align=center>
-          <h1 v-if="$store.state.cart.length === 0">El carrito está vacio!</h1>
-        </v-col>
-      </v-row>
+    <v-row class="mx-10 my-2">
+      <v-col align="center">
+        <h1 v-if="$store.state.cart.length === 0">El carrito está vacio!</h1>
+      </v-col>
+    </v-row>
     <v-card
       class="mx-10 my-2"
       tile
       outlined
-      v-for="(item, $index) in cart"
-      :key="$index"
+      v-for="item in cart" :key="item.product.id"
     >
       <template>
         <v-container>
           <v-row>
             <v-col cols="2">
-              <v-img :src="item.img" max-width="200px" />
+              <v-img :src="item.product.img" max-width="200px" />
             </v-col>
             <v-col cols="4">
-              <h1 class="pa-2" flat>Color: {{ item.name }}</h1>
-              <h4 class="pa-2" flat>Tamaño: {{ item.size }}</h4>
+              <h1 class="pa-2" flat>Color: {{ item.product.name }}</h1>
+              <h4 class="pa-2" flat>Tamaño: {{ item.product.size }}</h4>
               <v-card class="d-flex align-center" width="300px" flat>
                 <v-text-field
                   label="Cantidad"
@@ -41,11 +40,11 @@
         </v-container>
       </template>
     </v-card>
-          <v-row  v-if="$store.state.cart.length > 0">
-            <v-col align=center>
-              <h1>Total: $ {{getTotal}}</h1>
-            </v-col>
-          </v-row>
+    <v-row v-if="$store.state.cart.length > 0">
+      <v-col align="center">
+        <h1>Total: $ {{ getTotal }}</h1>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -56,8 +55,8 @@ export default {
       return this.$store.state.cart;
     },
     getTotal() {
-      return this.$store.getters.productTotal
-    }
+      return this.$store.getters.productTotal;
+    },
   },
   props: {
     cart: {
