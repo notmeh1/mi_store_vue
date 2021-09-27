@@ -20,6 +20,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    // agregar mas filtros
     searchByName(state) {
       return state.products.productList.filter((product) =>
         product.name.toLowerCase().includes(state.searchInput.toLowerCase())
