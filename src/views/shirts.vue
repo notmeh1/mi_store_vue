@@ -10,21 +10,22 @@
         <h1 class="mt-10">{{ getId.name }}</h1>
         <v-select
           :items="productSize"
-          v-model="sizeInput"
+          v-model="$store.state.products.newProductData.size"
           label="Tamaño"
           dense
           outlined
         ></v-select>
         <v-text-field
           label="Cantidad"
-          v-model="qtyInput"
+          v-model="$store.state.products.newProductData.qty"
           hide-details
           min="1"
           max="5"
           type="number"
           class="mb-10"
         />
-        <h3>Precio total: ${{ calcPrice }}</h3>
+        <p v-if="getId.sale" class="discountText">Descuento: {{ getId.discount }}%</p>
+        <h3>Precio total: <span v-if="getId.sale" :style="[getId.sale ? {'color' : 'red', 'font-weight' : 'bolder'} : {}]">${{calcPriceDiscount}}</span> <span :style="[getId.sale ? {'text-decoration' : 'line-through'} : {}]">${{ calcPrice}}</span></h3>
         <v-btn color="success" @click="$store.dispatch('addCart', getId.id)">Añadir al carrito</v-btn>
       </v-col>
       <v-col></v-col>
@@ -32,13 +33,17 @@
   </div>
 </template>
 
+<style scoped>
+.discountText {
+  color: red;
+}
+</style>
+
 <script>
 import store from "@/store";
 export default {
   data: () => ({
     productSize: ["XS", "S", "M", "L", "XL"],
-    sizeInput: "",
-    qtyInput: 1,
   }),
   computed: {
     id() {
@@ -50,7 +55,13 @@ export default {
       );
     },
     calcPrice() {
-      return this.qtyInput * this.getId.price;
+      return this.$store.state.products.newProductData.qty * this.getId.price;
+    },
+    calcPriceDiscount() {
+      return this.$store.state.products.newProductData.qty * this.getDiscount;
+    },
+    getDiscount() {
+      return this.getId.price - (this.getId.price * (this.getId.discount / 100))
     },
   },
 };

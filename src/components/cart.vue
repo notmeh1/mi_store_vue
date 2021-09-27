@@ -21,30 +21,31 @@
             <v-col cols="4">
               <h1 class="pa-2" flat>Color: {{ item.name }}</h1>
               <h4 class="pa-2" flat>Tamaño: {{ item.size }}</h4>
-            </v-col>
-            <v-col cols="4" class="d-flex align-center">
               <v-card class="d-flex align-center" width="300px" flat>
-                <v-btn color="success"><v-icon>mdi-plus</v-icon></v-btn>
                 <v-text-field
                   label="Cantidad"
+                  v-model="item.qty"
+                  @input="$store.dispatch('watchQty', $index)"
                   filled
                   value="1"
                   hide-details
-                  min="1"
+                  min="0"
                   max="5"
                   type="number"
                   class="mb-10 mx-3 my-4"
                 />
-                <v-btn color="error"><v-icon>mdi-minus</v-icon></v-btn>
               </v-card>
             </v-col>
-            <v-col cols="2" class="d-flex align-center justify-center">
-              <h2>Precio: ${{ item.price }}</h2>
-            </v-col>
+            <v-col></v-col>
           </v-row>
         </v-container>
       </template>
     </v-card>
+          <v-row  v-if="$store.state.cart.length > 0">
+            <v-col align=center>
+              <h1>Total: $ {{getTotal}}</h1>
+            </v-col>
+          </v-row>
   </div>
 </template>
 
@@ -54,6 +55,9 @@ export default {
     getProduct() {
       return this.$store.state.cart;
     },
+    getTotal() {
+      return this.$store.getters.productTotal
+    }
   },
   props: {
     cart: {
