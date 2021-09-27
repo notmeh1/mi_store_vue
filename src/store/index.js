@@ -6,13 +6,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    searchInput: '',
-    cart: [
-
-    ],
+    searchInput: "",
+    cart: [],
     addCartSnackbar: {
       snackbar: false,
       text: "Agregado al carrito con exito!",
+      timeout: 2500,
+    },
+    delCartSnackbar: {
+      snackbar: false,
+      text: "Se ha removido este producto!",
       timeout: 2500,
     },
   },
@@ -24,43 +27,45 @@ export default new Vuex.Store({
     },
     productTotal(state) {
       return state.cart.reduce((accumulator, product) => {
-        accumulator += product.product.price * (1 - product.product.discount / 100) * product.qty
-        return accumulator
-      }, 0)
-    }
+        accumulator +=
+          product.product.price *
+          (1 - product.product.discount / 100) *
+          product.qty;
+        return accumulator;
+      }, 0);
+    },
   },
   mutations: {
     SET_FILTER(state, newFilter) {
       state.searchInput = newFilter;
     },
-    ADD_CART(state, {product, qty}) {
-      let productCart = state.cart.find(item => {
-        return item.product.id === product.id
+    // agregar condicional para separar size de los productos
+    ADD_CART(state, { product, qty, size }) {
+      let productCart = state.cart.find((item) => {
+        return item.product.id === product.id;
       });
 
       if (productCart) {
         productCart.qty += qty;
-        return
+        return;
       }
       state.cart.push({
         product,
-        qty
-      })
-      this.state.addCartSnackbar.snackbar = true
-    },
-    //ADD_PRODUCT(state, newProduct) {
-    //  //console.log(newProduct)
-    //  state.cart.push(this.state.products.productList[newProduct])
-    //},
-    REMOVE_ITEM(state, product) {
-      let productCart = state.cart.find(item => {
-        return item.product.id === product.id
+        qty,
+        size,
       });
-      console.log(productCart)
-      if (productCart.qty === '0') {
-        state.cart = state.cart.filter(item => {
-          return item.product.id !== product.id
-        })
+      this.state.addCartSnackbar.snackbar = true;
+    },
+    REMOVE_ITEM(state, product) {
+      let productCart = state.cart.find((item) => {
+        return item.product.id === product.id;
+      });
+      if (productCart.qty === "0") {
+        state.cart = state.cart.filter((item) => {
+          this.state.delCartSnackbar.snackbar = true;
+          return item.product.id !== product.id;
+        }
+        );
       }
     },
   },
@@ -68,15 +73,14 @@ export default new Vuex.Store({
     getFilter(context, newFilter) {
       context.commit("SET_FILTER", newFilter);
     },
-    addCart({commit}, {product, qty}) {
-      commit('ADD_CART', {product, qty})
+    addCart({ commit }, { product, qty, size }) {
+      commit("ADD_CART", { product, qty, size });
     },
-    removeItem({commit}, product) {
-      console.log(product)
-      commit("REMOVE_ITEM", product)
-    }
+    removeItem({ commit }, product) {
+      commit("REMOVE_ITEM", product);
+    },
   },
   modules: {
-    products: productsModule
+    products: productsModule,
   },
 });

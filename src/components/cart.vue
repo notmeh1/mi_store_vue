@@ -19,7 +19,7 @@
             </v-col>
             <v-col cols="4">
               <h1 class="pa-2" flat>Color: {{ item.product.name }}</h1>
-              <h4 class="pa-2" flat>Tamaño: {{ item.product.size }}</h4>
+              <h4 class="pa-2" flat>Tamaño: {{ item.size }}</h4>
               <v-card class="d-flex align-center" width="300px" flat>
                 <v-text-field
                   label="Cantidad"

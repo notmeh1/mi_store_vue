@@ -12,6 +12,15 @@
         <v-icon class="mx-3">mdi-check</v-icon>
         {{ addCartSnackbar.text }}
       </v-snackbar>
+      <v-snackbar
+        v-model="delCartSnackbar.snackbar"
+        :timeout="delCartSnackbar.timeout"
+        color="error"
+        right
+      >
+        <v-icon class="mx-3">mdi-alert-circle</v-icon>
+        {{ delCartSnackbar.text }}
+      </v-snackbar>
     </v-main>
     <Footer />
   </v-app>
@@ -28,7 +37,7 @@ export default {
     //
   }),
   computed: {
-    ...mapState(["addCartSnackbar"]),
+    ...mapState(["addCartSnackbar", "delCartSnackbar"]),
   },
   components: {
     Navbar,
