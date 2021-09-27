@@ -24,7 +24,7 @@
                 <v-text-field
                   label="Cantidad"
                   v-model="item.qty"
-                  @input="$store.dispatch('watchQty', $index)"
+                  @input="$store.dispatch('removeItem', item.product)"
                   filled
                   value="1"
                   hide-details

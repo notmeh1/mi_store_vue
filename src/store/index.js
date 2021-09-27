@@ -12,7 +12,7 @@ export default new Vuex.Store({
     ],
     addCartSnackbar: {
       snackbar: false,
-      text: "test",
+      text: "Agregado al carrito con exito!",
       timeout: 2500,
     },
   },
@@ -46,15 +46,21 @@ export default new Vuex.Store({
         product,
         qty
       })
+      this.state.addCartSnackbar.snackbar = true
     },
     //ADD_PRODUCT(state, newProduct) {
     //  //console.log(newProduct)
     //  state.cart.push(this.state.products.productList[newProduct])
     //},
-    WATCH_QTY(state, product) {
-      if (state.cart[product].qty === 0) {
-        state.cart.splice(1, product)
-        console.log("se borro de la pagina", product)
+    REMOVE_ITEM(state, product) {
+      let productCart = state.cart.find(item => {
+        return item.product.id === product.id
+      });
+      console.log(productCart)
+      if (productCart.qty === '0') {
+        state.cart = state.cart.filter(item => {
+          return item.product.id !== product.id
+        })
       }
     },
   },
@@ -65,9 +71,9 @@ export default new Vuex.Store({
     addCart({commit}, {product, qty}) {
       commit('ADD_CART', {product, qty})
     },
-    watchQty(context, product) {
+    removeItem({commit}, product) {
       console.log(product)
-      context.commit("WATCH_QTY", product)
+      commit("REMOVE_ITEM", product)
     }
   },
   modules: {

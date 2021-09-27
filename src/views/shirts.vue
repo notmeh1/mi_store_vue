@@ -9,15 +9,15 @@
       <v-col>
         <h1 class="mt-10">{{ getId.name }}</h1>
         <v-select
-          :items="productSize"
-          v-model="$store.state.products.newProductData.size"
+          :items="sizeList"
+          v-model="productSize"
           label="Tamaño"
           dense
           outlined
         ></v-select>
         <v-text-field
           label="Cantidad"
-          v-model="$store.state.products.newProductData.qty"
+          v-model="productQty"
           hide-details
           min="1"
           max="5"
@@ -43,13 +43,16 @@
 import store from "@/store";
 export default {
   data: () => ({
-    productSize: ["XS", "S", "M", "L", "XL"],
+    sizeList: ["XS", "S", "M", "L", "XL"],
+    productSize: 'XS',
+    productQty: 1,
   }),
   methods: {
     addToCart() {
       this.$store.dispatch('addCart', {
         product: this.getId,
-        qty: 1,
+        qty: this.productQty,
+        size: this.productSize,
       })
     },
   },
